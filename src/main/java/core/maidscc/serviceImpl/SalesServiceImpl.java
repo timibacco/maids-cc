@@ -9,7 +9,9 @@ import core.maidscc.exceptions.ClientNotFoundException;
 import core.maidscc.repository.ProductRepository;
 import core.maidscc.repository.SalesRepository;
 import core.maidscc.service.SalesService;
+import core.maidscc.utils.Helper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
@@ -32,6 +34,8 @@ public class SalesServiceImpl implements SalesService {
 
     @Autowired
     private final SalesRepository salesRepo;
+
+    private final Helper helper;
 
     @Override
     public void generateSalesReport(LocalDate startDate, LocalDate endDate) {
@@ -73,16 +77,14 @@ public class SalesServiceImpl implements SalesService {
 
         }
 
-        Sales sale = sales.get();
-//...................................................//
+        String[] nulls = helper.getNullPropertyNames(fields);
 
-            fields.forEach((key, value) -> {
-                Field field = ReflectionUtils.findField(Sales.class, key);
-                assert field != null;
-                field.setAccessible(true);
-                ReflectionUtils.setField(field, sales, value);
-            });
-            return salesRepo.save(sale);
+        Sales sale = sales.get();
+
+        BeanUtils.copyProperties(fields, sale, nulls);
+        salesRepo.save(sale);
+
+        return sale;
 
 
     }

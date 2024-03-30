@@ -1,13 +1,11 @@
 package core.maidscc.entity;
 
-import lombok.Data;
-
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+import core.maidscc.enums.ProductStatus;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDate;
 
 
 @Data
@@ -25,7 +23,9 @@ public class ProductManagement {
     private LocalDate creationDate;
     private int availableQuantity;
     private double price;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private ProductStatus status;
 
     
 }

@@ -48,6 +48,7 @@ public class InventoryController {
 
         log.info("Getting inventory...from {} to {}", startDate, endDate);
 
+        reportService.generateReport(startDate, endDate);
 
     }
 }

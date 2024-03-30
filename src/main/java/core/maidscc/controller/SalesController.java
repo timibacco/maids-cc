@@ -54,7 +54,6 @@ public class SalesController {
     public ResponseEntity<?> updateSales(@PathVariable("productID") Long id, @RequestBody Map<String,Object> fields){
 
 
-
         try
         {
             log.info("Updating sales...");

@@ -31,7 +31,7 @@ public class ClientController {
     }
 
     @RequestMapping("/update/{id}")
-    public ResponseEntity<ClientManagement> updateClient(@PathVariable Long id, @RequestBody Map<String, Object> request){
+    public ResponseEntity<ClientManagement> updateClient(@PathVariable Long id, @RequestBody clientDTO request) throws Exception{
         return ResponseEntity.ok(clientService.updateClient(id, request));
     }
 }

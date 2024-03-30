@@ -13,5 +13,5 @@ public interface ClientService {
     ClientManagement createClient(clientDTO request);
 
     void deleteClient(Long id);
-    public ClientManagement updateClient(Long id, Map<String, Object> fields);
+    public ClientManagement updateClient(Long id, clientDTO request) throws Exception;
 }
