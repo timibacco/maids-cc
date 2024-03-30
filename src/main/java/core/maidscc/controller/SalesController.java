@@ -20,8 +20,13 @@ public class SalesController {
 
     private final SalesService salesService;
 
+
+    /**
+     * This endpoint gets sales
+     * Takes in a start date and an end date
+     */
     @GetMapping("/sales/{startDate}/{endDate}")
-    public ResponseEntity<?> getSales(@PageableDefault(size = 10, value = 11) @PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate){
+    public ResponseEntity<?> getSales(@PageableDefault() @PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate){
 
        try{
            log.info("Getting sales...from {} to {}", startDate, endDate);
@@ -33,6 +38,10 @@ public class SalesController {
         return ResponseEntity.badRequest().body(e.getMessage());
        }
     }
+
+    /**
+     * This endpoint adds new instances of sales
+     */
 
     @PostMapping("/sales")
     public ResponseEntity<?> addSales(@RequestBody salesDTO salesDTO){
@@ -50,6 +59,10 @@ public class SalesController {
 
     }
 
+    /**
+     * This endpoint updates sales
+     */
+
     @PatchMapping("/sales/{productID}")
     public ResponseEntity<?> updateSales(@PathVariable("productID") Long id, @RequestBody Map<String,Object> fields){
 
@@ -61,11 +74,15 @@ public class SalesController {
             return ResponseEntity.ok().body(response);
         }
         catch (Exception e){
-            log.error("Error updating sales: {}", e.getMessage());
+
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }
+
+    /**
+     * This endpoint deletes sales
+     */
 
     @DeleteMapping("/sales/{salesID}")
     public void deleteSales(@PathVariable("salesID") Long salesID){

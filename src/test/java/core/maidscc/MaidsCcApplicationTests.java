@@ -9,6 +9,7 @@ import core.maidscc.repository.ClientRepository;
 import core.maidscc.service.ClientService;
 import core.maidscc.serviceImpl.ClientServiceImpl;
 
+import core.maidscc.utils.Helper;
 import lombok.RequiredArgsConstructor;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +35,9 @@ public class MaidsCcApplicationTests {
     @Mock
     private ClientRepository clientrepo;
 
+    @Mock
+    private Helper helper;
+
 
 
 
@@ -52,7 +56,7 @@ public class MaidsCcApplicationTests {
 
 
         Long id = -1L;
-        ClientService clientService = new ClientServiceImpl(clientrepo);
+        ClientService clientService =   new ClientServiceImpl(clientrepo, helper);
 
         Exception exception = assertThrows(NullPointerException.class, () -> {
             clientService.deleteClient(id);
@@ -77,7 +81,7 @@ public class MaidsCcApplicationTests {
 
         when(clientrepo.findByEmail("test@example.com")).thenReturn(Optional.of(existingClient));
 
-        ClientService clientService = new ClientServiceImpl(clientrepo);
+        ClientService clientService = new ClientServiceImpl(clientrepo, helper);
 
         assertThrows(ClientAlreadyExistException.class, () -> clientService.createClient(request));
         verify(clientrepo, times(1)).findByEmail("test@example.com");
@@ -104,7 +108,7 @@ public class MaidsCcApplicationTests {
         updatedClient.setLastName(request.getLastName());
         updatedClient.setPhoneNumber(request.getPhoneNumber());
 
-        ClientService clientService = new ClientServiceImpl(clientrepo);
+        ClientService clientService = new ClientServiceImpl(clientrepo, helper);
 
         when(clientrepo.findById(id)).thenReturn(Optional.of(existingClient));
         when(clientService.updateClient(id, request)).thenReturn(updatedClient);
@@ -123,7 +127,7 @@ public class MaidsCcApplicationTests {
         request.setLastName("Doe");
         request.setPhoneNumber("1234567890");
 
-        ClientService clientService = new ClientServiceImpl(clientrepo);
+        ClientService clientService = new ClientServiceImpl(clientrepo, helper);
         when(clientrepo.findById(id)).thenReturn(Optional.empty());
 
         assertThrows(ClientNotFoundException.class, () -> {

@@ -23,6 +23,11 @@ public class InventoryController {
     private final ReportService reportService;
 
 
+    /**
+     * This endpoint generates a report.
+     * Takes in a start date and an end date
+     */
+
     @GetMapping("/generate-report/{startDate}/{endDate}")
     public ResponseEntity<?> getInventory(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate){
 
@@ -43,12 +48,26 @@ public class InventoryController {
 
     }
 
+    /**
+     * This endpoint generates a report.
+     * Takes in a start date and an end date
+     */
+
     @GetMapping("/get/{startDate}/{endDate}")
-    public void getClientReport(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) {
+    public ResponseEntity<?> getClientReport(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) {
+
+        try{
+
 
         log.info("Getting inventory...from {} to {}", startDate, endDate);
 
         reportService.generateReport(startDate, endDate);
+        return ResponseEntity.ok().build();
+        }
+        catch (Exception e){
+            log.error("Error getting inventory: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
 
     }
 }

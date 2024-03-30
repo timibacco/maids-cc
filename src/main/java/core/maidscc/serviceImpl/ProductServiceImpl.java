@@ -31,17 +31,17 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public void createProduct(productDTO productDTO) {
+    public ProductManagement createProduct(productDTO productDTO) {
 
         ProductManagement product = new ProductManagement();
         BeanUtils.copyProperties(productDTO, product);
         productRepository.save(product);
-
+        return product;
     }
 
     @Override
-    public void updateProduct(productDTO productDTO) {
-        Optional<ProductManagement> productOptional = productRepository.findById(productDTO.getId());
+    public void updateProduct(Long Id, productDTO productDTO) {
+        Optional<ProductManagement> productOptional = productRepository.findById(Id);
         if (productOptional.isEmpty()) {
             log.info("Product to be updated not found...{}",productDTO);
             throw new RuntimeException("Product not found");

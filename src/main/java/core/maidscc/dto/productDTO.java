@@ -7,7 +7,6 @@ import lombok.Data;
 public class productDTO {
 
 
-    private Long id;
 
     private String name;
 

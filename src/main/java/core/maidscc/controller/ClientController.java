@@ -19,17 +19,28 @@ public class ClientController {
     private final ClientService clientService;
 
 
+    /**
+     * This endpoint creates new clients
+     */
 
     @PostMapping("/create")
     public ResponseEntity<ClientManagement> createClient(@RequestBody clientDTO request){
         return ResponseEntity.ok(clientService.createClient(request));
     }
 
+
+    /**
+     * This endpoint deletes clients
+     */
     @DeleteMapping("/delete/{id}")
     public void deleteClient(@PathVariable Long id){
         clientService.deleteClient(id);
     }
 
+
+    /**
+     * This endpoint updates clients
+     */
     @RequestMapping("/update/{id}")
     public ResponseEntity<ClientManagement> updateClient(@PathVariable Long id, @RequestBody clientDTO request) throws Exception{
         return ResponseEntity.ok(clientService.updateClient(id, request));

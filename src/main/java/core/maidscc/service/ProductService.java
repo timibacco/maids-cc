@@ -1,12 +1,13 @@
 package core.maidscc.service;
 
 import core.maidscc.dto.productDTO;
+import core.maidscc.entity.ProductManagement;
 
 public interface ProductService {
 
-    void createProduct(productDTO productDTO);
+    ProductManagement createProduct(productDTO productDTO);
 
-    void updateProduct(productDTO productDTO);
+    void updateProduct(Long Id, productDTO productDTO);
 
 
     void deleteProduct(Long productId);
