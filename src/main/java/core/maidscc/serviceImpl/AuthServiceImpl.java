@@ -59,11 +59,11 @@ public class AuthServiceImpl implements AuthService {
 
         var user = repo.findByEmail(request.getEmail());
 
-        if (helper.isEmailValid(request.getEmail())){
+        if (!helper.isEmailValid(request.getEmail())){
             throw new InvalidEmailException();
         }
         if (user.isEmpty()) {
-            throw new UsernameNotFoundException( "Wrong username or password!");
+            throw new UsernameNotFoundException( "User not found");
 
         }
 

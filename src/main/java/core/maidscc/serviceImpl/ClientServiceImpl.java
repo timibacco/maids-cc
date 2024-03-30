@@ -59,7 +59,7 @@ public class ClientServiceImpl implements ClientService {
         if (existingProduct != null) {
             fields.forEach((key, value) -> {
                 Field field = ReflectionUtils.findField(ClientManagement.class, key);
-                assert field != null;
+
                 field.setAccessible(true);
                 ReflectionUtils.setField(field, existingProduct, value);
             });

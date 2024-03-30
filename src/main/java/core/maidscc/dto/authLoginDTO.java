@@ -1,5 +1,6 @@
 package core.maidscc.dto;
 
+
 import lombok.Data;
 
 @Data

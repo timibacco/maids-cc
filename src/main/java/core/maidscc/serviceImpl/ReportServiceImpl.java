@@ -31,13 +31,35 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public void generateReport(LocalDate startDate, LocalDate endDate) {
 
+
+
+
     }
 
     @Override
-    public void generateClientReport(LocalDate startDate, LocalDate endDate) {
+    public Object generateClientReport(LocalDate startDate, LocalDate endDate) {
 
-        Map<String,Object[]> reportData = new HashMap<>();
+        Map<String,Object> reportData = new HashMap<>();
 
+
+        var querySalesInDate = salesRepository.findByCreationDateBetween(startDate,endDate);
+
+        var queryProducts = salesRepository.getTotalRevenueBetweenDates(startDate,endDate);
+
+        var topSellingClients = clientRepository.findTopSpendingClients();
+
+        var topSellingProducts = salesRepository.findTopSellingProducts();
+
+        reportData.put("Sales",querySalesInDate);
+        reportData.put("Total Revenue",queryProducts);
+        reportData.put("Top Selling Clients",topSellingClients);
+        reportData.put("Top Selling Products",topSellingProducts);
+
+
+
+
+
+        return reportData;
         
 
 

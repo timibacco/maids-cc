@@ -11,7 +11,7 @@ public interface ReportService {
 
         void generateReport(LocalDate startDate, LocalDate endDate);
 
-        void generateClientReport(LocalDate startDate, LocalDate endDate);
+        Object generateClientReport(LocalDate startDate, LocalDate endDate);
 
 
 

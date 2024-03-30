@@ -13,7 +13,7 @@ import java.util.List;
 public interface SalesRepository extends JpaRepository<Sales,Long> {
     int countByCreationDateBetween(LocalDate startDate, LocalDate endDate);
 
-    Sales findByCreationDateBetween(LocalDate startDate, LocalDate endDate);
+    Sales[] findByCreationDateBetween(LocalDate startDate, LocalDate endDate);
 
     @Query("SELECT SUM(s.total) FROM Sales s WHERE s.creationDate BETWEEN :startDate AND :endDate")
     Double getTotalRevenueBetweenDates(LocalDate startDate, LocalDate endDate);
